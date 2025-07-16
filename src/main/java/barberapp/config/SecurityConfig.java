@@ -30,8 +30,9 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorizeRequests -> {
                     authorizeRequests.requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll();
-                    authorizeRequests.requestMatchers(HttpMethod.POST, "/api/auth/registro/barbero").permitAll();
-                    authorizeRequests.requestMatchers(HttpMethod.POST, "/api/auth/registro/cliente").permitAll();
+                    authorizeRequests.requestMatchers(HttpMethod.POST, "/api/auth/registro/barbero").hasAuthority("BARBERO");
+                    authorizeRequests.requestMatchers(HttpMethod.POST, "/api/auth/registro/cliente").hasAuthority("CLIENTE");
+                    authorizeRequests.requestMatchers(HttpMethod.POST, "/api/turnos").hasAuthority("CLIENTE");
                     authorizeRequests.requestMatchers("/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**").permitAll();
                     authorizeRequests.anyRequest().authenticated();
 

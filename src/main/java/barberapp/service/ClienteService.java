@@ -31,4 +31,12 @@ public class ClienteService {
         return clienteRepositoy.save(cliente);
     }
 
+    public Long obtenerIdPorEmail(String clienteEmail) {
+        Cliente cliente = clienteRepositoy.findByEmail(clienteEmail);
+        if (cliente != null) {
+            return cliente.getId();
+        } else {
+            throw new RuntimeException("Cliente no encontrado con el email: " + clienteEmail);
+        }
+    }
 }
